@@ -1,0 +1,56 @@
+digraph CodeCallGraph {
+    rankdir=TB;
+    node [shape=box, style="rounded,filled"];
+    edge [color=darkblue, arrowhead=vee];
+
+    subgraph cluster_main_py {
+        label="main.py";
+        style=filled;
+        fillcolor=lightsteelblue;
+        "main_main_py" [label="main\nLine: 11", fillcolor=lightcoral];
+    }
+
+    subgraph cluster_operations_py {
+        label="operations.py";
+        style=filled;
+        fillcolor=lightsteelblue;
+        "__init___operations_py" [label="__init__\nLine: 13", fillcolor=lightgreen];
+        "add_operations_py" [label="add\nLine: 17", fillcolor=lightgreen];
+        "subtract_operations_py" [label="subtract\nLine: 32", fillcolor=lightgreen];
+        "multiply_operations_py" [label="multiply\nLine: 47", fillcolor=lightgreen];
+        "divide_operations_py" [label="divide\nLine: 62", fillcolor=lightgreen];
+        "power_operations_py" [label="power\nLine: 83", fillcolor=lightgreen];
+        "_add_to_history_operations_py" [label="_add_to_history\nLine: 98", fillcolor=lightgreen];
+        "show_history_operations_py" [label="show_history\nLine: 111", fillcolor=lightgreen];
+        "clear_history_operations_py" [label="clear_history\nLine: 125", fillcolor=lightgreen];
+    }
+
+    subgraph cluster_utils_py {
+        label="utils.py";
+        style=filled;
+        fillcolor=lightsteelblue;
+        "display_menu_utils_py" [label="display_menu\nLine: 10", fillcolor=lightyellow];
+        "get_user_input_utils_py" [label="get_user_input\nLine: 21", fillcolor=lightyellow];
+        "validate_number_utils_py" [label="validate_number\nLine: 43", fillcolor=lightyellow];
+        "format_result_utils_py" [label="format_result\nLine: 61", fillcolor=lightyellow];
+        "is_integer_utils_py" [label="is_integer\nLine: 78", fillcolor=lightyellow];
+        "safe_divide_utils_py" [label="safe_divide\nLine: 91", fillcolor=lightyellow];
+        "clear_screen_utils_py" [label="clear_screen\nLine: 107", fillcolor=lightyellow];
+        "confirm_action_utils_py" [label="confirm_action\nLine: 113", fillcolor=lightyellow];
+    }
+
+    // Function call relationships
+    "main_main_py" -> "add_operations_py";
+    "main_main_py" -> "subtract_operations_py";
+    "main_main_py" -> "multiply_operations_py";
+    "main_main_py" -> "divide_operations_py";
+    "main_main_py" -> "show_history_operations_py";
+    "main_main_py" -> "display_menu_utils_py";
+    "main_main_py" -> "get_user_input_utils_py";
+    "add_operations_py" -> "_add_to_history_operations_py";
+    "subtract_operations_py" -> "_add_to_history_operations_py";
+    "multiply_operations_py" -> "_add_to_history_operations_py";
+    "divide_operations_py" -> "_add_to_history_operations_py";
+    "power_operations_py" -> "_add_to_history_operations_py";
+    "get_user_input_utils_py" -> "validate_number_utils_py";
+}

@@ -1,0 +1,184 @@
+{
+  "nodes": [
+    {
+      "id": "main::main.py",
+      "name": "main",
+      "kind": "FUNCTION",
+      "file": "main.py",
+      "line": 11
+    },
+    {
+      "id": "__init__::operations.py",
+      "name": "__init__",
+      "kind": "FUNCTION",
+      "file": "operations.py",
+      "line": 13
+    },
+    {
+      "id": "add::operations.py",
+      "name": "add",
+      "kind": "FUNCTION",
+      "file": "operations.py",
+      "line": 17
+    },
+    {
+      "id": "subtract::operations.py",
+      "name": "subtract",
+      "kind": "FUNCTION",
+      "file": "operations.py",
+      "line": 32
+    },
+    {
+      "id": "multiply::operations.py",
+      "name": "multiply",
+      "kind": "FUNCTION",
+      "file": "operations.py",
+      "line": 47
+    },
+    {
+      "id": "divide::operations.py",
+      "name": "divide",
+      "kind": "FUNCTION",
+      "file": "operations.py",
+      "line": 62
+    },
+    {
+      "id": "power::operations.py",
+      "name": "power",
+      "kind": "FUNCTION",
+      "file": "operations.py",
+      "line": 83
+    },
+    {
+      "id": "_add_to_history::operations.py",
+      "name": "_add_to_history",
+      "kind": "FUNCTION",
+      "file": "operations.py",
+      "line": 98
+    },
+    {
+      "id": "show_history::operations.py",
+      "name": "show_history",
+      "kind": "FUNCTION",
+      "file": "operations.py",
+      "line": 111
+    },
+    {
+      "id": "clear_history::operations.py",
+      "name": "clear_history",
+      "kind": "FUNCTION",
+      "file": "operations.py",
+      "line": 125
+    },
+    {
+      "id": "display_menu::utils.py",
+      "name": "display_menu",
+      "kind": "FUNCTION",
+      "file": "utils.py",
+      "line": 10
+    },
+    {
+      "id": "get_user_input::utils.py",
+      "name": "get_user_input",
+      "kind": "FUNCTION",
+      "file": "utils.py",
+      "line": 21
+    },
+    {
+      "id": "validate_number::utils.py",
+      "name": "validate_number",
+      "kind": "FUNCTION",
+      "file": "utils.py",
+      "line": 43
+    },
+    {
+      "id": "format_result::utils.py",
+      "name": "format_result",
+      "kind": "FUNCTION",
+      "file": "utils.py",
+      "line": 61
+    },
+    {
+      "id": "is_integer::utils.py",
+      "name": "is_integer",
+      "kind": "FUNCTION",
+      "file": "utils.py",
+      "line": 78
+    },
+    {
+      "id": "safe_divide::utils.py",
+      "name": "safe_divide",
+      "kind": "FUNCTION",
+      "file": "utils.py",
+      "line": 91
+    },
+    {
+      "id": "clear_screen::utils.py",
+      "name": "clear_screen",
+      "kind": "FUNCTION",
+      "file": "utils.py",
+      "line": 107
+    },
+    {
+      "id": "confirm_action::utils.py",
+      "name": "confirm_action",
+      "kind": "FUNCTION",
+      "file": "utils.py",
+      "line": 113
+    }
+  ],
+  "edges": [
+    {
+      "from": "main::main.py",
+      "to": "add::operations.py"
+    },
+    {
+      "from": "main::main.py",
+      "to": "subtract::operations.py"
+    },
+    {
+      "from": "main::main.py",
+      "to": "multiply::operations.py"
+    },
+    {
+      "from": "main::main.py",
+      "to": "divide::operations.py"
+    },
+    {
+      "from": "main::main.py",
+      "to": "show_history::operations.py"
+    },
+    {
+      "from": "main::main.py",
+      "to": "display_menu::utils.py"
+    },
+    {
+      "from": "main::main.py",
+      "to": "get_user_input::utils.py"
+    },
+    {
+      "from": "add::operations.py",
+      "to": "_add_to_history::operations.py"
+    },
+    {
+      "from": "subtract::operations.py",
+      "to": "_add_to_history::operations.py"
+    },
+    {
+      "from": "multiply::operations.py",
+      "to": "_add_to_history::operations.py"
+    },
+    {
+      "from": "divide::operations.py",
+      "to": "_add_to_history::operations.py"
+    },
+    {
+      "from": "power::operations.py",
+      "to": "_add_to_history::operations.py"
+    },
+    {
+      "from": "get_user_input::utils.py",
+      "to": "validate_number::utils.py"
+    }
+  ]
+}
