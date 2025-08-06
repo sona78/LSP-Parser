@@ -1,74 +1,32 @@
 {
   "nodes": [
     {
+      "id": "display_menu::main.py",
+      "name": "display_menu",
+      "kind": "FUNCTION",
+      "file": "main.py",
+      "line": 8
+    },
+    {
+      "id": "get_user_input::main.py",
+      "name": "get_user_input",
+      "kind": "FUNCTION",
+      "file": "main.py",
+      "line": 8
+    },
+    {
+      "id": "validate_number::main.py",
+      "name": "validate_number",
+      "kind": "FUNCTION",
+      "file": "main.py",
+      "line": 8
+    },
+    {
       "id": "main::main.py",
       "name": "main",
       "kind": "FUNCTION",
       "file": "main.py",
       "line": 11
-    },
-    {
-      "id": "__init__::operations.py",
-      "name": "__init__",
-      "kind": "FUNCTION",
-      "file": "operations.py",
-      "line": 13
-    },
-    {
-      "id": "add::operations.py",
-      "name": "add",
-      "kind": "FUNCTION",
-      "file": "operations.py",
-      "line": 17
-    },
-    {
-      "id": "subtract::operations.py",
-      "name": "subtract",
-      "kind": "FUNCTION",
-      "file": "operations.py",
-      "line": 32
-    },
-    {
-      "id": "multiply::operations.py",
-      "name": "multiply",
-      "kind": "FUNCTION",
-      "file": "operations.py",
-      "line": 47
-    },
-    {
-      "id": "divide::operations.py",
-      "name": "divide",
-      "kind": "FUNCTION",
-      "file": "operations.py",
-      "line": 62
-    },
-    {
-      "id": "power::operations.py",
-      "name": "power",
-      "kind": "FUNCTION",
-      "file": "operations.py",
-      "line": 83
-    },
-    {
-      "id": "_add_to_history::operations.py",
-      "name": "_add_to_history",
-      "kind": "FUNCTION",
-      "file": "operations.py",
-      "line": 98
-    },
-    {
-      "id": "show_history::operations.py",
-      "name": "show_history",
-      "kind": "FUNCTION",
-      "file": "operations.py",
-      "line": 111
-    },
-    {
-      "id": "clear_history::operations.py",
-      "name": "clear_history",
-      "kind": "FUNCTION",
-      "file": "operations.py",
-      "line": 125
     },
     {
       "id": "display_menu::utils.py",
@@ -130,51 +88,39 @@
   "edges": [
     {
       "from": "main::main.py",
-      "to": "add::operations.py"
+      "to": "display_menu::main.py"
+    },
+    {
+      "from": "display_menu::main.py",
+      "to": "get_user_input::main.py"
     },
     {
       "from": "main::main.py",
-      "to": "subtract::operations.py"
+      "to": "get_user_input::main.py"
     },
     {
-      "from": "main::main.py",
-      "to": "multiply::operations.py"
+      "from": "display_menu::main.py",
+      "to": "validate_number::main.py"
     },
     {
-      "from": "main::main.py",
-      "to": "divide::operations.py"
-    },
-    {
-      "from": "main::main.py",
-      "to": "show_history::operations.py"
+      "from": "get_user_input::utils.py",
+      "to": "validate_number::main.py"
     },
     {
       "from": "main::main.py",
       "to": "display_menu::utils.py"
     },
     {
+      "from": "display_menu::main.py",
+      "to": "get_user_input::utils.py"
+    },
+    {
       "from": "main::main.py",
       "to": "get_user_input::utils.py"
     },
     {
-      "from": "add::operations.py",
-      "to": "_add_to_history::operations.py"
-    },
-    {
-      "from": "subtract::operations.py",
-      "to": "_add_to_history::operations.py"
-    },
-    {
-      "from": "multiply::operations.py",
-      "to": "_add_to_history::operations.py"
-    },
-    {
-      "from": "divide::operations.py",
-      "to": "_add_to_history::operations.py"
-    },
-    {
-      "from": "power::operations.py",
-      "to": "_add_to_history::operations.py"
+      "from": "display_menu::main.py",
+      "to": "validate_number::utils.py"
     },
     {
       "from": "get_user_input::utils.py",
