@@ -1,0 +1,79 @@
+// Code Call Graph
+digraph {
+	rankdir=TB
+	node [fillcolor=lightblue shape=box style="rounded,filled"]
+	edge [arrowhead=vee color=darkblue]
+	subgraph "cluster_main.py" {
+		fillcolor=lightsteelblue label="main.py" style=filled
+		"Calculator::main.py" [label="Calculator\nLine: 7" fillcolor=lightgoldenrodyellow shape=hexagon style=filled]
+		"display_menu::main.py" [label="display_menu\nLine: 8" fillcolor=lightcoral]
+		"get_user_input::main.py" [label="get_user_input\nLine: 8" fillcolor=lightcoral]
+		"validate_number::main.py" [label="validate_number\nLine: 8" fillcolor=lightcoral]
+		"main::main.py" [label="main\nLine: 11" fillcolor=lightcoral]
+	}
+	subgraph "cluster_operations.py" {
+		fillcolor=lightsteelblue label="operations.py" style=filled
+		"datetime::operations.py" [label="datetime\nLine: 6" fillcolor=lightgoldenrodyellow shape=hexagon style=filled]
+		"List::operations.py" [label="List\nLine: 7" fillcolor=lightgoldenrodyellow shape=hexagon style=filled]
+		"Tuple::operations.py" [label="Tuple\nLine: 7" fillcolor=lightgoldenrodyellow shape=hexagon style=filled]
+		"Calculator::operations.py" [label="Calculator\nLine: 10" fillcolor=lightcyan penwidth=2 shape=box style="rounded,filled,bold"]
+		"__init__::operations.py" [label="__init__\nLine: 13" fillcolor=lightsteelblue shape=box style="rounded,filled"]
+		"history::operations.py" [label="history\nLine: 15" fillcolor=lightpink shape=diamond style=filled]
+		"add::operations.py" [label="add\nLine: 17" fillcolor=lightsteelblue shape=box style="rounded,filled"]
+		"subtract::operations.py" [label="subtract\nLine: 32" fillcolor=lightsteelblue shape=box style="rounded,filled"]
+		"multiply::operations.py" [label="multiply\nLine: 47" fillcolor=lightsteelblue shape=box style="rounded,filled"]
+		"divide::operations.py" [label="divide\nLine: 62" fillcolor=lightsteelblue shape=box style="rounded,filled"]
+		"power::operations.py" [label="power\nLine: 83" fillcolor=lightsteelblue shape=box style="rounded,filled"]
+		"_add_to_history::operations.py" [label="_add_to_history\nLine: 98" fillcolor=lightsteelblue shape=box style="rounded,filled"]
+		"show_history::operations.py" [label="show_history\nLine: 111" fillcolor=lightsteelblue shape=box style="rounded,filled"]
+		"clear_history::operations.py" [label="clear_history\nLine: 125" fillcolor=lightsteelblue shape=box style="rounded,filled"]
+	}
+	subgraph "cluster_utils.py" {
+		fillcolor=lightsteelblue label="utils.py" style=filled
+		"re::utils.py" [label="re\nLine: 6" fillcolor=lightgoldenrodyellow shape=hexagon style=filled]
+		"Union::utils.py" [label="Union\nLine: 7" fillcolor=lightgoldenrodyellow shape=hexagon style=filled]
+		"display_menu::utils.py" [label="display_menu\nLine: 10" fillcolor=lightyellow]
+		"get_user_input::utils.py" [label="get_user_input\nLine: 21" fillcolor=lightyellow]
+		"validate_number::utils.py" [label="validate_number\nLine: 43" fillcolor=lightyellow]
+		"format_result::utils.py" [label="format_result\nLine: 61" fillcolor=lightyellow]
+		"is_integer::utils.py" [label="is_integer\nLine: 78" fillcolor=lightyellow]
+		"safe_divide::utils.py" [label="safe_divide\nLine: 91" fillcolor=lightyellow]
+		"clear_screen::utils.py" [label="clear_screen\nLine: 107" fillcolor=lightyellow]
+		"confirm_action::utils.py" [label="confirm_action\nLine: 113" fillcolor=lightyellow]
+	}
+	main:"":main.py -> display_menu:"":main.py
+	display_menu:"":main.py -> get_user_input:"":main.py
+	main:"":main.py -> get_user_input:"":main.py
+	display_menu:"":main.py -> validate_number:"":main.py
+	get_user_input:"":utils.py -> validate_number:"":main.py
+	main:"":main.py -> display_menu:"":utils.py
+	display_menu:"":main.py -> get_user_input:"":utils.py
+	main:"":main.py -> get_user_input:"":utils.py
+	display_menu:"":main.py -> validate_number:"":utils.py
+	get_user_input:"":utils.py -> validate_number:"":utils.py
+	main:"":main.py -> add:"":operations.py
+	main:"":main.py -> subtract:"":operations.py
+	main:"":main.py -> multiply:"":operations.py
+	main:"":main.py -> divide:"":operations.py
+	add:"":operations.py -> _add_to_history:"":operations.py
+	subtract:"":operations.py -> _add_to_history:"":operations.py
+	multiply:"":operations.py -> _add_to_history:"":operations.py
+	divide:"":operations.py -> _add_to_history:"":operations.py
+	power:"":operations.py -> _add_to_history:"":operations.py
+	main:"":main.py -> show_history:"":operations.py
+	__init__:"":operations.py -> history:"":operations.py
+	_add_to_history:"":operations.py -> history:"":operations.py
+	show_history:"":operations.py -> history:"":operations.py
+	clear_history:"":operations.py -> history:"":operations.py
+	validate_number:"":utils.py -> re:"":utils.py
+	Calculator:"":operations.py -> __init__:"":operations.py
+	Calculator:"":operations.py -> add:"":operations.py
+	Calculator:"":operations.py -> subtract:"":operations.py
+	Calculator:"":operations.py -> multiply:"":operations.py
+	Calculator:"":operations.py -> divide:"":operations.py
+	Calculator:"":operations.py -> power:"":operations.py
+	Calculator:"":operations.py -> _add_to_history:"":operations.py
+	Calculator:"":operations.py -> show_history:"":operations.py
+	Calculator:"":operations.py -> clear_history:"":operations.py
+	Calculator:"":operations.py -> history:"":operations.py
+}

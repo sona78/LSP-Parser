@@ -1,0 +1,96 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #f5f5f5;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.app {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.controls {
+  padding: 1rem;
+  background: white;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.controls h1 {
+  margin: 0;
+  color: #333;
+  font-size: 1.5rem;
+}
+
+.controls select {
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: white;
+}
+
+.graph-container {
+  flex: 1;
+  position: relative;
+}
+
+/* React Flow group node styling */
+.react-flow__node-group {
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.8);
+  z-index: 1; /* Ensure groups are behind edges */
+}
+
+/* Custom node styling within groups */
+.react-flow__node {
+  cursor: grab;
+  z-index: 5; /* Ensure nodes are above groups but below edges */
+}
+
+.react-flow__node:active {
+  cursor: grabbing;
+}
+
+/* Edge styling for better visibility */
+.react-flow__edge {
+  z-index: 10 !important; /* Ensure edges appear above group backgrounds */
+}
+
+.react-flow__edge-path {
+  stroke-width: 3 !important; /* Thicker lines for better visibility */
+  stroke: #2563eb !important; /* Darker blue for better contrast */
+  opacity: 0.9 !important;
+}
+
+.react-flow__edge-text {
+  z-index: 15 !important;
+}
+
+/* Group node title styling */
+.group-node-title {
+  font-weight: bold;
+  color: #333;
+  font-size: 14px;
+  padding: 8px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 4px;
+  margin-bottom: 10px;
+}

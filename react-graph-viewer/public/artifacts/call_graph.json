@@ -304,46 +304,6 @@
     {
       "from": "validate_number::utils.py",
       "to": "re::utils.py"
-    },
-    {
-      "from": "Calculator::operations.py",
-      "to": "__init__::operations.py"
-    },
-    {
-      "from": "Calculator::operations.py",
-      "to": "add::operations.py"
-    },
-    {
-      "from": "Calculator::operations.py",
-      "to": "subtract::operations.py"
-    },
-    {
-      "from": "Calculator::operations.py",
-      "to": "multiply::operations.py"
-    },
-    {
-      "from": "Calculator::operations.py",
-      "to": "divide::operations.py"
-    },
-    {
-      "from": "Calculator::operations.py",
-      "to": "power::operations.py"
-    },
-    {
-      "from": "Calculator::operations.py",
-      "to": "_add_to_history::operations.py"
-    },
-    {
-      "from": "Calculator::operations.py",
-      "to": "show_history::operations.py"
-    },
-    {
-      "from": "Calculator::operations.py",
-      "to": "clear_history::operations.py"
-    },
-    {
-      "from": "Calculator::operations.py",
-      "to": "history::operations.py"
     }
   ]
 }
