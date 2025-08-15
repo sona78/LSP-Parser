@@ -1,4 +1,6 @@
+.env
 .venv/
 .claude/
 __pycache__/
 react-graph-viewer/node_modules
+react-graph-viewer/build

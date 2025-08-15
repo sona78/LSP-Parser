@@ -1,349 +1,105 @@
 {
   "nodes": [
     {
-      "id": "Calculator::main.py",
-      "name": "Calculator",
-      "kind": "IMPORT",
-      "file": "main.py",
-      "line": 7
+      "id": "file_0",
+      "name": "setup.py",
+      "type": "file"
     },
     {
-      "id": "display_menu::main.py",
-      "name": "display_menu",
-      "kind": "FUNCTION",
-      "file": "main.py",
-      "line": 8
+      "id": "file_1",
+      "name": "conf.py",
+      "type": "file"
     },
     {
-      "id": "get_user_input::main.py",
-      "name": "get_user_input",
-      "kind": "FUNCTION",
-      "file": "main.py",
-      "line": 8
+      "id": "file_2",
+      "name": "flask_theme_support.py",
+      "type": "file"
     },
     {
-      "id": "validate_number::main.py",
-      "name": "validate_number",
-      "kind": "FUNCTION",
-      "file": "main.py",
-      "line": 8
+      "id": "file_3",
+      "name": "adapters.py",
+      "type": "file"
     },
     {
-      "id": "main::main.py",
-      "name": "main",
-      "kind": "FUNCTION",
-      "file": "main.py",
-      "line": 11
+      "id": "file_4",
+      "name": "api.py",
+      "type": "file"
     },
     {
-      "id": "datetime::operations.py",
-      "name": "datetime",
-      "kind": "IMPORT",
-      "file": "operations.py",
-      "line": 6
+      "id": "file_5",
+      "name": "auth.py",
+      "type": "file"
     },
     {
-      "id": "List::operations.py",
-      "name": "List",
-      "kind": "IMPORT",
-      "file": "operations.py",
-      "line": 7
+      "id": "file_6",
+      "name": "certs.py",
+      "type": "file"
     },
     {
-      "id": "Tuple::operations.py",
-      "name": "Tuple",
-      "kind": "IMPORT",
-      "file": "operations.py",
-      "line": 7
+      "id": "file_7",
+      "name": "compat.py",
+      "type": "file"
     },
     {
-      "id": "Calculator::operations.py",
-      "name": "Calculator",
-      "kind": "CLASS",
-      "file": "operations.py",
-      "line": 10
+      "id": "file_8",
+      "name": "cookies.py",
+      "type": "file"
     },
     {
-      "id": "__init__::operations.py",
-      "name": "__init__",
-      "kind": "METHOD",
-      "file": "operations.py",
-      "line": 13
+      "id": "file_9",
+      "name": "exceptions.py",
+      "type": "file"
     },
     {
-      "id": "history::operations.py",
-      "name": "history",
-      "kind": "PROPERTY",
-      "file": "operations.py",
-      "line": 15
+      "id": "file_10",
+      "name": "help.py",
+      "type": "file"
     },
     {
-      "id": "add::operations.py",
-      "name": "add",
-      "kind": "METHOD",
-      "file": "operations.py",
-      "line": 17
+      "id": "file_11",
+      "name": "hooks.py",
+      "type": "file"
     },
     {
-      "id": "subtract::operations.py",
-      "name": "subtract",
-      "kind": "METHOD",
-      "file": "operations.py",
-      "line": 32
+      "id": "file_12",
+      "name": "models.py",
+      "type": "file"
     },
     {
-      "id": "multiply::operations.py",
-      "name": "multiply",
-      "kind": "METHOD",
-      "file": "operations.py",
-      "line": 47
+      "id": "file_13",
+      "name": "packages.py",
+      "type": "file"
     },
     {
-      "id": "divide::operations.py",
-      "name": "divide",
-      "kind": "METHOD",
-      "file": "operations.py",
-      "line": 62
+      "id": "file_14",
+      "name": "sessions.py",
+      "type": "file"
     },
     {
-      "id": "power::operations.py",
-      "name": "power",
-      "kind": "METHOD",
-      "file": "operations.py",
-      "line": 83
+      "id": "file_15",
+      "name": "status_codes.py",
+      "type": "file"
     },
     {
-      "id": "_add_to_history::operations.py",
-      "name": "_add_to_history",
-      "kind": "METHOD",
-      "file": "operations.py",
-      "line": 98
+      "id": "file_16",
+      "name": "structures.py",
+      "type": "file"
     },
     {
-      "id": "show_history::operations.py",
-      "name": "show_history",
-      "kind": "METHOD",
-      "file": "operations.py",
-      "line": 111
+      "id": "file_17",
+      "name": "utils.py",
+      "type": "file"
     },
     {
-      "id": "clear_history::operations.py",
-      "name": "clear_history",
-      "kind": "METHOD",
-      "file": "operations.py",
-      "line": 125
+      "id": "file_18",
+      "name": "_internal_utils.py",
+      "type": "file"
     },
     {
-      "id": "re::utils.py",
-      "name": "re",
-      "kind": "IMPORT",
-      "file": "utils.py",
-      "line": 6
-    },
-    {
-      "id": "Union::utils.py",
-      "name": "Union",
-      "kind": "IMPORT",
-      "file": "utils.py",
-      "line": 7
-    },
-    {
-      "id": "display_menu::utils.py",
-      "name": "display_menu",
-      "kind": "FUNCTION",
-      "file": "utils.py",
-      "line": 10
-    },
-    {
-      "id": "get_user_input::utils.py",
-      "name": "get_user_input",
-      "kind": "FUNCTION",
-      "file": "utils.py",
-      "line": 21
-    },
-    {
-      "id": "validate_number::utils.py",
-      "name": "validate_number",
-      "kind": "FUNCTION",
-      "file": "utils.py",
-      "line": 43
-    },
-    {
-      "id": "format_result::utils.py",
-      "name": "format_result",
-      "kind": "FUNCTION",
-      "file": "utils.py",
-      "line": 61
-    },
-    {
-      "id": "is_integer::utils.py",
-      "name": "is_integer",
-      "kind": "FUNCTION",
-      "file": "utils.py",
-      "line": 78
-    },
-    {
-      "id": "safe_divide::utils.py",
-      "name": "safe_divide",
-      "kind": "FUNCTION",
-      "file": "utils.py",
-      "line": 91
-    },
-    {
-      "id": "clear_screen::utils.py",
-      "name": "clear_screen",
-      "kind": "FUNCTION",
-      "file": "utils.py",
-      "line": 107
-    },
-    {
-      "id": "confirm_action::utils.py",
-      "name": "confirm_action",
-      "kind": "FUNCTION",
-      "file": "utils.py",
-      "line": 113
+      "id": "file_19",
+      "name": "__init__.py",
+      "type": "file"
     }
   ],
-  "edges": [
-    {
-      "from": "main::main.py",
-      "to": "display_menu::main.py"
-    },
-    {
-      "from": "display_menu::main.py",
-      "to": "get_user_input::main.py"
-    },
-    {
-      "from": "main::main.py",
-      "to": "get_user_input::main.py"
-    },
-    {
-      "from": "display_menu::main.py",
-      "to": "validate_number::main.py"
-    },
-    {
-      "from": "get_user_input::utils.py",
-      "to": "validate_number::main.py"
-    },
-    {
-      "from": "main::main.py",
-      "to": "display_menu::utils.py"
-    },
-    {
-      "from": "display_menu::main.py",
-      "to": "get_user_input::utils.py"
-    },
-    {
-      "from": "main::main.py",
-      "to": "get_user_input::utils.py"
-    },
-    {
-      "from": "display_menu::main.py",
-      "to": "validate_number::utils.py"
-    },
-    {
-      "from": "get_user_input::utils.py",
-      "to": "validate_number::utils.py"
-    },
-    {
-      "from": "main::main.py",
-      "to": "add::operations.py"
-    },
-    {
-      "from": "main::main.py",
-      "to": "subtract::operations.py"
-    },
-    {
-      "from": "main::main.py",
-      "to": "multiply::operations.py"
-    },
-    {
-      "from": "main::main.py",
-      "to": "divide::operations.py"
-    },
-    {
-      "from": "add::operations.py",
-      "to": "_add_to_history::operations.py"
-    },
-    {
-      "from": "subtract::operations.py",
-      "to": "_add_to_history::operations.py"
-    },
-    {
-      "from": "multiply::operations.py",
-      "to": "_add_to_history::operations.py"
-    },
-    {
-      "from": "divide::operations.py",
-      "to": "_add_to_history::operations.py"
-    },
-    {
-      "from": "power::operations.py",
-      "to": "_add_to_history::operations.py"
-    },
-    {
-      "from": "main::main.py",
-      "to": "show_history::operations.py"
-    },
-    {
-      "from": "__init__::operations.py",
-      "to": "history::operations.py"
-    },
-    {
-      "from": "_add_to_history::operations.py",
-      "to": "history::operations.py"
-    },
-    {
-      "from": "show_history::operations.py",
-      "to": "history::operations.py"
-    },
-    {
-      "from": "clear_history::operations.py",
-      "to": "history::operations.py"
-    },
-    {
-      "from": "validate_number::utils.py",
-      "to": "re::utils.py"
-    },
-    {
-      "from": "Calculator::operations.py",
-      "to": "__init__::operations.py"
-    },
-    {
-      "from": "Calculator::operations.py",
-      "to": "add::operations.py"
-    },
-    {
-      "from": "Calculator::operations.py",
-      "to": "subtract::operations.py"
-    },
-    {
-      "from": "Calculator::operations.py",
-      "to": "multiply::operations.py"
-    },
-    {
-      "from": "Calculator::operations.py",
-      "to": "divide::operations.py"
-    },
-    {
-      "from": "Calculator::operations.py",
-      "to": "power::operations.py"
-    },
-    {
-      "from": "Calculator::operations.py",
-      "to": "_add_to_history::operations.py"
-    },
-    {
-      "from": "Calculator::operations.py",
-      "to": "show_history::operations.py"
-    },
-    {
-      "from": "Calculator::operations.py",
-      "to": "clear_history::operations.py"
-    },
-    {
-      "from": "Calculator::operations.py",
-      "to": "history::operations.py"
-    }
-  ]
+  "edges": []
 }

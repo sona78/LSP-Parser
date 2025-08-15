@@ -1,7 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import ReactFlow, {
-  Node,
-  Edge,
   addEdge,
   useNodesState,
   useEdgesState,
@@ -19,6 +17,42 @@ dagreGraph.setDefaultEdgeLabel(() => ({}));
 
 const nodeWidth = 172;
 const nodeHeight = 36;
+
+// Utility function to safely log object info without causing overflow
+const logObjectInfo = (obj, label = 'Object') => {
+  try {
+    if (!obj) {
+      console.log(`${label}: null/undefined`);
+      return;
+    }
+    
+    if (Array.isArray(obj)) {
+      console.log(`${label}: Array with ${obj.length} items`);
+      if (obj.length > 0) {
+        const firstItem = obj[0];
+        const keys = firstItem ? Object.keys(firstItem).join(', ') : 'no keys';
+        console.log(`  First item keys: ${keys}`);
+      }
+    } else if (typeof obj === 'object') {
+      const keys = Object.keys(obj);
+      console.log(`${label}: Object with keys: ${keys.join(', ')}`);
+      keys.forEach(key => {
+        const value = obj[key];
+        if (Array.isArray(value)) {
+          console.log(`  ${key}: Array[${value.length}]`);
+        } else if (value && typeof value === 'object') {
+          console.log(`  ${key}: Object with ${Object.keys(value).length} keys`);
+        } else {
+          console.log(`  ${key}: ${typeof value}`);
+        }
+      });
+    } else {
+      console.log(`${label}: ${typeof obj} - ${String(obj).slice(0, 100)}`);
+    }
+  } catch (error) {
+    console.log(`${label}: Error logging object info -`, error.message);
+  }
+};
 
 const getLayoutedElements = (nodes, edges, direction = 'TB') => {
   const isHorizontal = direction === 'LR';
@@ -207,9 +241,28 @@ const getNodeStyle = (kind, file) => {
 };
 
 const transformGraphToReactFlow = (graph) => {
+  // Validate input
+  if (!graph || !graph.nodes || !Array.isArray(graph.nodes)) {
+    console.error('Invalid graph structure - missing or invalid nodes array');
+    return { nodes: [], edges: [] };
+  }
+
+  if (!graph.edges || !Array.isArray(graph.edges)) {
+    console.warn('Invalid or missing edges array, using empty array');
+    graph.edges = [];
+  }
+
+  console.log(`Processing graph with ${graph.nodes.length} nodes and ${graph.edges.length} edges`);
+
   // Group nodes by file
   const nodesByFile = {};
   graph.nodes.forEach(node => {
+    // Validate node structure
+    if (!node.file || !node.id || !node.name) {
+      console.warn('Skipping invalid node:', { id: node.id, name: node.name, file: node.file });
+      return;
+    }
+    
     if (!nodesByFile[node.file]) {
       nodesByFile[node.file] = [];
     }
@@ -305,25 +358,41 @@ const transformGraphToReactFlow = (graph) => {
   // Combine regular nodes and group nodes
   const allNodes = [...groupNodes, ...nodes];
 
-  const edges = graph.edges.map((edge, index) => ({
-    id: `edge-${index}`,
-    source: edge.from,
-    target: edge.to,
-    type: 'smoothstep',
-    style: {
-      strokeWidth: 3,
-      stroke: '#2563eb',
-      opacity: 0.9,
+  const edges = graph.edges
+    .filter(edge => {
+      // Validate edge structure
+      if (!edge.from || !edge.to) {
+        console.warn('Skipping invalid edge:', { from: edge.from, to: edge.to });
+        return false;
+      }
+      // Check if source and target nodes exist
+      const hasSource = graph.nodes.some(node => node.id === edge.from);
+      const hasTarget = graph.nodes.some(node => node.id === edge.to);
+      if (!hasSource || !hasTarget) {
+        console.warn(`Skipping edge with missing nodes: ${edge.from} -> ${edge.to}`);
+        return false;
+      }
+      return true;
+    })
+    .map((edge, index) => ({
+      id: `edge-${index}`,
+      source: edge.from,
+      target: edge.to,
+      type: 'smoothstep',
+      style: {
+        strokeWidth: 3,
+        stroke: '#2563eb',
+        opacity: 0.9,
+        zIndex: 10,
+      },
+      markerEnd: {
+        type: 'arrowclosed',
+        width: 24,
+        height: 24,
+        color: '#2563eb',
+      },
       zIndex: 10,
-    },
-    markerEnd: {
-      type: 'arrowclosed',
-      width: 24,
-      height: 24,
-      color: '#2563eb',
-    },
-    zIndex: 10,
-  }));
+    }));
 
   return { nodes: allNodes, edges };
 };
@@ -362,22 +431,62 @@ function App() {
   useEffect(() => {
     const loadGraphData = async () => {
       try {
-        const [combinedRes, callRes, declarationRes] = await Promise.all([
-          fetch('/artifacts/combined_graph.json'),
-          fetch('/artifacts/call_graph.json'),
-          fetch('/artifacts/declaration_graph.json')
-        ]);
+        // Check if we're running in VS Code webview
+        if (window.acquireVsCodeApi) {
+          // VS Code webview - listen for messages
+          const vscode = window.acquireVsCodeApi();
+          
+          window.addEventListener('message', (event) => {
+            const message = event.data;
+            if (message.type === 'graphData') {
+              try {
+                // Log basic info about received data without full object
+                console.log('Received graph data from VS Code');
+                const data = message.data;
+                
+                // Use safe logging to understand data structure
+                logObjectInfo(data, 'Received data');
 
-        const [combined, call, declaration] = await Promise.all([
-          combinedRes.json(),
-          callRes.json(),
-          declarationRes.json()
-        ]);
+                // Set graph data with fallbacks
+                setGraphData({
+                  combined: data.combined || data,
+                  call: data.call || data,
+                  declaration: data.declaration || data
+                });
+                setLoading(false);
+              } catch (error) {
+                console.error('Error processing graph data:', error);
+                setGraphData({
+                  combined: null,
+                  call: null,
+                  declaration: null
+                });
+                setLoading(false);
+              }
+            }
+          });
+          
+          // Request graph data from VS Code
+          vscode.postMessage({ type: 'requestGraphData' });
+        } else {
+          // Standalone mode - fetch from files
+          const [combinedRes, callRes, declarationRes] = await Promise.all([
+            fetch('/artifacts/combined_graph.json'),
+            fetch('/artifacts/call_graph.json'),
+            fetch('/artifacts/declaration_graph.json')
+          ]);
 
-        setGraphData({ combined, call, declaration });
+          const [combined, call, declaration] = await Promise.all([
+            combinedRes.json(),
+            callRes.json(),
+            declarationRes.json()
+          ]);
+
+          setGraphData({ combined, call, declaration });
+          setLoading(false);
+        }
       } catch (error) {
         console.error('Failed to load graph data:', error);
-      } finally {
         setLoading(false);
       }
     };
@@ -389,6 +498,11 @@ function App() {
     if (loading || !graphData[graphType]) return;
 
     const selectedGraph = graphData[graphType];
+    if (!selectedGraph || !selectedGraph.nodes || !selectedGraph.edges) {
+      console.error('Invalid graph data structure:', selectedGraph);
+      return;
+    }
+
     const { nodes: transformedNodes, edges: transformedEdges } = 
       transformGraphToReactFlow(selectedGraph);
 
@@ -407,6 +521,22 @@ function App() {
         <div className="controls">
           <h1>Code Graph Viewer</h1>
           <div>Loading graph data...</div>
+        </div>
+      </div>
+    );
+  }
+
+  if (!graphData.combined && !graphData.call && !graphData.declaration) {
+    return (
+      <div className="app">
+        <div className="controls">
+          <h1>Code Graph Viewer</h1>
+          <div style={{ color: 'red' }}>
+            No graph data available. 
+            {window.acquireVsCodeApi ? 
+              ' Make sure to generate a graph first in the VS Code extension.' : 
+              ' Make sure the JSON files are available in the /artifacts/ folder.'}
+          </div>
         </div>
       </div>
     );

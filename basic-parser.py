@@ -8,6 +8,8 @@ from multilspy.multilspy_config import MultilspyConfig
 from multilspy.multilspy_logger import MultilspyLogger
 from files import GRAPH_JSON_FILE, CALL_GRAPH_JSON_FILE, DECLARATION_GRAPH_JSON_FILE
 
+# Store the original working directory for LSP server
+original_working_directory = os.getcwd()
 repository_root_path = os.path.abspath("test-project")
 
 class TimeoutError(Exception):
@@ -37,8 +39,31 @@ def setup_lsp(root_path):
     logger = MultilspyLogger()
 
     print(f"Repository root path: {root_path}")
+    print(f"Original working directory: {original_working_directory}")
     print("Creating language server...")
-    return LanguageServer.create(config, logger, root_path)
+    
+    # Use absolute path to jedi-language-server to avoid PATH issues
+    import shutil
+    jedi_path = shutil.which("jedi-language-server")
+    if jedi_path:
+        print(f"Found jedi-language-server at: {jedi_path}")
+        # Temporarily monkey-patch the command to use absolute path
+        from multilspy.language_servers.jedi_language_server import jedi_server
+        original_init = jedi_server.JediServer.__init__
+        
+        def patched_init(self, config, logger, repository_root_path):
+            from multilspy.lsp_protocol_handler.server import ProcessLaunchInfo
+            from multilspy.language_server import LanguageServer as BaseLS
+            BaseLS.__init__(self, config, logger, repository_root_path, 
+                          ProcessLaunchInfo(cmd=jedi_path, cwd=original_working_directory), "python")
+        
+        jedi_server.JediServer.__init__ = patched_init
+        result = LanguageServer.create(config, logger, root_path)
+        jedi_server.JediServer.__init__ = original_init  # Restore original
+        return result
+    else:
+        print("Warning: jedi-language-server not found in PATH")
+        return LanguageServer.create(config, logger, root_path)
 
 async def get_functions_from_file(lsp, file_path, root_path):
     """Extract all function, method, class, property, and import symbols from a file using multilspy."""
@@ -385,6 +410,14 @@ def create_declaration_graph(nodes, method_class_edges, property_class_edges, im
 async def build_code_graph_with_multilspy():
     """Build code graph using multilspy with comprehensive error handling."""
     print("Building code graph with multilspy...")
+    print(f"Repository root path: {repository_root_path}")
+    print(f"Original working directory: {original_working_directory}")
+
+    # Ensure we're in the original working directory for LSP server startup
+    current_dir = os.getcwd()
+    if current_dir != original_working_directory:
+        print(f"Changing back to original directory: {original_working_directory}")
+        os.chdir(original_working_directory)
 
     lsp = setup_lsp(repository_root_path)
     print(f"Language server created: {type(lsp).__name__}")
@@ -448,6 +481,47 @@ async def build_code_graph_with_multilspy():
         save_graph(graph, GRAPH_JSON_FILE, "Combined Graph")
         
         return {"combined": graph, "call": call_graph, "declaration": declaration_graph}
+
+def run_parser_on_directory(directory_path: str) -> bool:
+    """
+    Run the parser on a given directory and generate graph artifacts.
+    
+    Args:
+        directory_path: Path to the directory containing Python files
+        
+    Returns:
+        True if parsing succeeded, False otherwise
+    """
+    global repository_root_path
+    
+    # Update the repository path
+    old_path = repository_root_path
+    repository_root_path = os.path.abspath(directory_path)
+    
+    try:
+        print(f"Running parser on directory: {repository_root_path}")
+        result = asyncio.run(main())
+        return result
+    finally:
+        # Restore original path
+        repository_root_path = old_path
+
+def get_parser_config():
+    """Get the current parser configuration."""
+    return {
+        'repository_root_path': repository_root_path,
+        'original_working_directory': original_working_directory
+    }
+
+def setup_parser_for_directory(directory_path: str):
+    """
+    Set up parser configuration for a specific directory.
+    
+    Args:
+        directory_path: Path to the directory to analyze
+    """
+    global repository_root_path
+    repository_root_path = os.path.abspath(directory_path)
 
 async def main():
     """Main entry point with platform-specific timeout handling."""
